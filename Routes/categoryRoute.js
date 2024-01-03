@@ -1,11 +1,12 @@
-const express = require("express");
-const {
+import express from "express";
+import {
   categorycontroller,
   updatecategorycontroller,
   categoryallcontroller,
   deleteCategorycontroller,
-} = require("../Controller/categoryController");
-const { isAuthicatedUser, isAdmin } = require("../middleware/auth");
+} from "../Controller/categoryController.js";
+import { isAuthicatedUser, isAdmin } from "../middleware/auth.js";
+
 const CategoryRouter = express.Router();
 
 CategoryRouter.route("/admin/create-category").post(
@@ -16,7 +17,6 @@ CategoryRouter.route("/admin/create-category").post(
 
 CategoryRouter.route("/admin/update-category/:id").put(
   isAuthicatedUser,
-
   isAdmin,
   updatecategorycontroller
 );
@@ -29,4 +29,4 @@ CategoryRouter.route("/admin/delete-category/:id").delete(
   deleteCategorycontroller
 );
 
-module.exports = CategoryRouter;
+export default CategoryRouter;

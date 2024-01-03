@@ -1,4 +1,4 @@
-const dotenv = require("dotenv");
+import dotenv from "dotenv";
 dotenv.config();
 
 const sendToken = (user, status, msg, res) => {
@@ -27,4 +27,4 @@ const sendToken = (user, status, msg, res) => {
     });
 };
 
-module.exports = sendToken;
+export default sendToken;

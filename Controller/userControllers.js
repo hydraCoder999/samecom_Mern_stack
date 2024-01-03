@@ -1,13 +1,13 @@
-const usersModel = require("../Model/users.model");
-const validator = require("validator");
-const ErrorHandler = require("../utils/ErrorHandler");
-const sendToken = require("../utils/JWTtoken");
-const { ThrowError } = require("../utils/ErrorHelper");
-const { SendEmail } = require("../utils/sendEamil");
-const cloudinary = require("cloudinary");
-const JWT = require("jsonwebtoken");
+import usersModel from "../Model/users.model.js";
+import validator from "validator";
+import ErrorHandler from "../utils/ErrorHandler.js";
+import sendToken from "../utils/JWTtoken.js";
+import { ThrowError } from "../utils/ErrorHelper.js";
+import { SendEmail } from "../utils/sendEamil.js";
+import cloudinary from "cloudinary";
+import JWT from "jsonwebtoken";
 
-exports.RegisterUserController = async (req, res) => {
+export const RegisterUserController = async (req, res) => {
   try {
     const { name, email, password, mobile } = req.body;
     const registeruser = await usersModel.findOne({ email });
@@ -70,7 +70,7 @@ exports.RegisterUserController = async (req, res) => {
 };
 
 //login Controller
-exports.loginUserController = async (req, res) => {
+export const loginUserController = async (req, res) => {
   try {
     const { email, password } = req.body;
 
@@ -98,7 +98,7 @@ exports.loginUserController = async (req, res) => {
 };
 
 //logout fucntionallity
-exports.LogoutUserController = async (req, res) => {
+export const LogoutUserController = async (req, res) => {
   try {
     res
       .cookie("token", null, {
@@ -123,7 +123,7 @@ exports.LogoutUserController = async (req, res) => {
 
 //Forgot Password Controller
 
-exports.ForgotPasswordController = async (req, res) => {
+export const ForgotPasswordController = async (req, res) => {
   if (req.body.email === "") {
     throw ErrorHandler.customError("Please Fill Email Field", 404);
   }
@@ -181,7 +181,7 @@ exports.ForgotPasswordController = async (req, res) => {
 };
 
 //Reset Password Controller
-exports.ResetPasswordController = async (req, res) => {
+export const ResetPasswordController = async (req, res) => {
   try {
     const resetToken = req.params.token;
 
@@ -214,7 +214,7 @@ exports.ResetPasswordController = async (req, res) => {
 };
 
 //UserRutes
-exports.GetUserDeatils = async (req, res) => {
+export const GetUserDeatils = async (req, res) => {
   try {
     const user = await usersModel.findById(req.user._id);
     if (!user) {
@@ -231,7 +231,7 @@ exports.GetUserDeatils = async (req, res) => {
 };
 
 // Refresh token
-exports.RefreshTokenController = async (req, res) => {
+export const RefreshTokenController = async (req, res) => {
   try {
     const refreshToken = req.cookies.refreshToken;
     if (!refreshToken) {
@@ -264,7 +264,7 @@ exports.RefreshTokenController = async (req, res) => {
 
 //Chnage Password
 
-exports.UpdatePasswordController = async (req, res) => {
+export const UpdatePasswordController = async (req, res) => {
   try {
     const user = await usersModel.findById(req.user._id).select("+password");
     if (!user) {
@@ -295,7 +295,7 @@ exports.UpdatePasswordController = async (req, res) => {
 };
 
 //update Profile Controller
-exports.UpdateProfileController = async (req, res) => {
+export const UpdateProfileController = async (req, res) => {
   try {
     let NewUserData = {
       name: req.body.name,
@@ -344,7 +344,7 @@ exports.UpdateProfileController = async (req, res) => {
 
 // admin show all user profiles
 
-exports.GetAllUserDeatils = async (req, res) => {
+export const GetAllUserDeatils = async (req, res) => {
   try {
     const alluser = await usersModel.find({});
 
@@ -359,7 +359,7 @@ exports.GetAllUserDeatils = async (req, res) => {
 };
 
 //single details of user admin can see only
-exports.GetSingleUserDeatils = async (req, res) => {
+export const GetSingleUserDeatils = async (req, res) => {
   try {
     const user = await usersModel.findById(req.params.id);
     if (!user) {
@@ -377,7 +377,7 @@ exports.GetSingleUserDeatils = async (req, res) => {
 };
 
 //update userRle ==>admin
-exports.UpdateUserRole = async (req, res) => {
+export const UpdateUserRole = async (req, res) => {
   try {
     if (!req.body.role) {
       throw ErrorHandler.customError("please Pass the Role", 404);
@@ -402,7 +402,7 @@ exports.UpdateUserRole = async (req, res) => {
 };
 
 //delete user
-exports.DeleteUser = async (req, res) => {
+export const DeleteUser = async (req, res) => {
   try {
     const user = await usersModel.findByIdAndDelete(req.params.id);
     if (!user) {

@@ -1,9 +1,11 @@
-const PaymentRouter = require("express").Router();
-const {
+import express from "express";
+import {
   paymentController,
   sendStripeApiKey,
-} = require("../Controller/PaymentController");
-const { isAuthicatedUser } = require("../middleware/auth");
+} from "../Controller/PaymentController.js";
+import { isAuthicatedUser } from "../middleware/auth.js";
+
+const PaymentRouter = express.Router();
 
 PaymentRouter.route("/process/payment").post(
   isAuthicatedUser,
@@ -12,4 +14,4 @@ PaymentRouter.route("/process/payment").post(
 
 PaymentRouter.route("/stripeapikey").get(isAuthicatedUser, sendStripeApiKey);
 
-module.exports = PaymentRouter;
+export default PaymentRouter;

@@ -1,12 +1,13 @@
-const orderModel = require("../Model/order.model");
-const productModel = require("../Model/product.model");
-const ErrorHandler = require("../utils/ErrorHandler");
-const { ThrowError } = require("../utils/ErrorHelper");
-const fs = require("fs");
-const path = require("path");
-const PDFDocument = require("pdfkit");
-//Create new order
-exports.newOrderController = async (req, res) => {
+import orderModel from "../Model/order.model.js";
+import productModel from "../Model/product.model.js";
+import ErrorHandler from "../utils/ErrorHandler.js";
+import { ThrowError } from "../utils/ErrorHelper.js";
+import fs from "fs";
+import path from "path";
+import PDFDocument from "pdfkit";
+
+// Create new order
+export const newOrderController = async (req, res) => {
   try {
     const {
       shippingInfo,
@@ -42,7 +43,7 @@ exports.newOrderController = async (req, res) => {
 };
 
 //get single order
-exports.GetMyOrder = async (req, res) => {
+export const GetMyOrder = async (req, res) => {
   try {
     const order = await orderModel.find({ user: req.user._id });
 
@@ -56,7 +57,7 @@ exports.GetMyOrder = async (req, res) => {
 };
 
 //admin single user order show
-exports.GetUserOrdersByAdmin = async (req, res) => {
+export const GetUserOrdersByAdmin = async (req, res) => {
   try {
     const order = await orderModel
       .findById(req.params.id)
@@ -82,7 +83,7 @@ exports.GetUserOrdersByAdmin = async (req, res) => {
 };
 
 //Get all orders for admin
-exports.GetAllOrdersAdmin = async (req, res) => {
+export const GetAllOrdersAdmin = async (req, res) => {
   try {
     const orders = await orderModel.find({}).populate("user", "name email");
 
@@ -103,7 +104,7 @@ exports.GetAllOrdersAdmin = async (req, res) => {
 };
 
 //Update Order Status
-exports.UpdateOrder = async (req, res) => {
+export const UpdateOrder = async (req, res) => {
   try {
     const order = await orderModel.findById(req.params.id);
     if (!order) {
@@ -149,7 +150,7 @@ exports.UpdateOrder = async (req, res) => {
 };
 
 // delete order
-exports.DeleteOrder = async (req, res) => {
+export const DeleteOrder = async (req, res) => {
   try {
     const order = await orderModel.findById(req.params.id);
     if (!order) throw ErrorHandler.customError("Order Not Found", 404);
@@ -166,7 +167,7 @@ exports.DeleteOrder = async (req, res) => {
 // index.js
 
 //Generating Invoice Controller
-exports.IvoiceController = async (req, res) => {
+export const IvoiceController = async (req, res) => {
   try {
     const invoiceId = req.params.id;
 

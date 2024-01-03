@@ -1,22 +1,22 @@
-const googlerouter = require("express").Router();
-const passport = require("passport");
-const dotenv = require("dotenv");
+import express from "express";
+import passport from "passport";
+import dotenv from "dotenv";
+
+const googlerouter = express.Router();
 dotenv.config();
+
 googlerouter.get("/login/success", (req, res) => {
-  // if (!req.isAuthenticated()) {
-  console.log(req);
   if (req.user) {
-    // console.log("ssjs");
     res.status(200).send({
       success: true,
       message: "success",
       user: req.user,
     });
+  } else {
+    res.send("Error");
   }
-  z;
-  // }
-  res.send("Error");
 });
+
 googlerouter.get("/login/failed", (req, res) => {
   return res.status(400).send({
     message: "Login Failed",
@@ -30,7 +30,7 @@ googlerouter.get("/google/callback", (req, res) => {
       failureRedirect: "/login/failed",
       successRedirect: process.env.CLIENT_URL,
     },
-    (err, user, info) => {
+    (err, user) => {
       if (err) {
         console.log(err);
         return res.status(400).send({
@@ -68,4 +68,4 @@ googlerouter.get(
   passport.authenticate("google", { scope: ["profile", "email"] })
 );
 
-module.exports = googlerouter;
+export default googlerouter;

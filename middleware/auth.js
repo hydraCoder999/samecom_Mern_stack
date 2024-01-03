@@ -1,12 +1,12 @@
-const usersModel = require("../Model/users.model");
-const ErrorHandler = require("../utils/ErrorHandler");
-const JWT = require("jsonwebtoken");
-const dotenv = require("dotenv");
-const { ThrowError } = require("../utils/ErrorHelper");
+import usersModel from "../Model/users.model.js";
+import ErrorHandler from "../utils/ErrorHandler.js";
+import JWT from "jsonwebtoken";
+import dotenv from "dotenv";
+import { ThrowError } from "../utils/ErrorHelper.js";
 
 dotenv.config();
 
-exports.isAuthicatedUser = async (req, res, next) => {
+export const isAuthicatedUser = async (req, res, next) => {
   try {
     const { token } = req.cookies;
     if (!token || token == undefined) {
@@ -37,7 +37,7 @@ exports.isAuthicatedUser = async (req, res, next) => {
 };
 
 //Check the user is admin or not
-exports.isAdmin = async (req, res, next) => {
+export const isAdmin = async (req, res, next) => {
   try {
     const getuser = req.user;
     if (getuser.role !== "admin") {

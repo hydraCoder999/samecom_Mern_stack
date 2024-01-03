@@ -1,8 +1,7 @@
-const ErrorHandler = require("../utils/ErrorHandler");
-
+import ErrorHandler from "../utils/ErrorHandler.js";
 //no need of this
 
-module.exports = (err, req, res, next) => {
+const ErrorMiddleware = (err, req, res, next) => {
   // Check if the error is an instance of ErrorHandler
   if (err instanceof ErrorHandler) {
     // console.log("err", err.message);
@@ -22,3 +21,5 @@ module.exports = (err, req, res, next) => {
   }
   next();
 };
+
+export default ErrorMiddleware;

@@ -1,6 +1,6 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
-exports.dbconnection = () => {
+const dbconnection = () => {
   mongoose
     .connect(process.env.MONGO_URL, {
       useNewUrlParser: true,
@@ -13,3 +13,5 @@ exports.dbconnection = () => {
       console.log("error : " + err);
     });
 };
+
+export default dbconnection;

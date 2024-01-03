@@ -1,11 +1,11 @@
-const mongoose = require("mongoose");
-const productModel = require("../Model/product.model");
-const ApiFeatures = require("../utils/ApiFeatures");
-const ErrorHandler = require("../utils/ErrorHandler");
-const { ThrowError } = require("../utils/ErrorHelper");
-const cloudinary = require("cloudinary");
+import mongoose from "mongoose";
+import productModel from "../Model/product.model.js";
+import ApiFeatures from "../utils/ApiFeatures.js";
+import ErrorHandler from "../utils/ErrorHandler.js";
+import { ThrowError } from "../utils/ErrorHelper.js";
+import cloudinary from "cloudinary";
 //create Product  => Admin
-exports.createProduct = async (req, res) => {
+export const createProduct = async (req, res) => {
   try {
     req.body.createdBy = req.user._id;
     const product = req.body;
@@ -58,7 +58,7 @@ exports.createProduct = async (req, res) => {
 };
 
 //update product => admin
-exports.updateProductController = async (req, res) => {
+export const updateProductController = async (req, res) => {
   try {
     let product = await productModel.findById(req.params.id);
 
@@ -134,7 +134,7 @@ exports.updateProductController = async (req, res) => {
 };
 
 //delete product => admin
-exports.deleteProductcontroller = async (req, res) => {
+export const deleteProductcontroller = async (req, res) => {
   try {
     const id = req.params.id;
 
@@ -165,7 +165,7 @@ exports.deleteProductcontroller = async (req, res) => {
 };
 
 //get single product
-exports.gteSingleProductController = async (req, res) => {
+export const gteSingleProductController = async (req, res) => {
   try {
     const id = req.params.id;
 
@@ -195,7 +195,7 @@ exports.gteSingleProductController = async (req, res) => {
 
 // getall products
 
-// exports.getAllProducts = async (req, res) => {
+// export const getAllProducts = async (req, res) => {
 //   try {
 //     const resultperpage = 5;
 //     const ProductCount = await productModel.countDocuments();
@@ -224,7 +224,7 @@ exports.gteSingleProductController = async (req, res) => {
 //   }
 // };
 
-exports.getAllProducts = async (req, res) => {
+export const getAllProducts = async (req, res) => {
   try {
     const resultperpage = 5;
     let totalProductCount;
@@ -291,7 +291,7 @@ exports.getAllProducts = async (req, res) => {
 };
 
 //Admin all product
-exports.getAlladminProducts = async (req, res) => {
+export const getAlladminProducts = async (req, res) => {
   const products = await productModel.find();
   res.status(200).send({
     success: true,
@@ -299,7 +299,7 @@ exports.getAlladminProducts = async (req, res) => {
   });
 };
 
-exports.CreateProductReviewController = async (req, res) => {
+export const CreateProductReviewController = async (req, res) => {
   try {
     const { rating, comment, productId } = req.body;
 
@@ -345,7 +345,7 @@ exports.CreateProductReviewController = async (req, res) => {
 };
 
 //fetching singlr product review
-exports.GetProductAllRviews = async (req, res) => {
+export const GetProductAllRviews = async (req, res) => {
   try {
     const product = await productModel.findById(req.params.id);
 
@@ -360,7 +360,7 @@ exports.GetProductAllRviews = async (req, res) => {
 };
 
 //deleting product review
-exports.DeleteProductReviews = async (req, res) => {
+export const DeleteProductReviews = async (req, res) => {
   try {
     // if (!req.query.reviewid || req.query.reviewid === "") {
     //   throw ErrorHandler.customError("Please Provide the Review Id", 400);

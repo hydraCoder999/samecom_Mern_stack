@@ -1,6 +1,6 @@
-const ErrorHandler = require("./ErrorHandler");
+import ErrorHandler from "./ErrorHandler.js";
 
-exports.ThrowError = (error, res, msg) => {
+export const ThrowError = (error, res, msg) => {
   if (error instanceof ErrorHandler) {
     res.status(error.status).send(error);
   } else {

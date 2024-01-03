@@ -1,9 +1,9 @@
-const nodemailer = require("nodemailer");
-const dotenv = require("dotenv");
-const { ThrowError } = require("./ErrorHelper");
+import nodemailer from "nodemailer";
+import dotenv from "dotenv";
+import { ThrowError } from "./ErrorHelper.js";
 dotenv.config();
 
-exports.SendEmail = async (options, res) => {
+export const SendEmail = async (options, res) => {
   try {
     const TransPorter = nodemailer.createTransport({
       host: process.env.NODEMAILER_SERVICE, // if uou use the gamil use this "smtp.gmail.com"

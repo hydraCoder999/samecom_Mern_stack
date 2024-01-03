@@ -1,5 +1,5 @@
-const express = require("express");
-const {
+import express from "express";
+import {
   RegisterUserController,
   loginUserController,
   LogoutUserController,
@@ -13,8 +13,9 @@ const {
   UpdateUserRole,
   DeleteUser,
   RefreshTokenController,
-} = require("../Controller/userControllers");
-const { isAuthicatedUser, isAdmin } = require("../middleware/auth");
+} from "../Controller/userControllers.js";
+import { isAuthicatedUser, isAdmin } from "../middleware/auth.js";
+
 const userRouter = express.Router();
 
 userRouter.route("/register").post(RegisterUserController);
@@ -28,13 +29,13 @@ userRouter.route("/logout").get(isAuthicatedUser, LogoutUserController);
 //Forgot
 userRouter.route("/password/forgot").post(ForgotPasswordController);
 
-//Reste Password with token
+//Reset Password with token
 userRouter.route("/password/reset/:token").put(ResetPasswordController);
 
-//geting User Profile
+//getting User Profile
 userRouter.route("/myprofile").get(isAuthicatedUser, GetUserDeatils);
 
-//Refrsh Token
+//Refresh Token
 userRouter.route("/refresh-token").get(RefreshTokenController);
 
 //update password
@@ -52,12 +53,11 @@ userRouter
   .route("/admin/getallusers")
   .get(isAuthicatedUser, isAdmin, GetAllUserDeatils);
 
-//
 userRouter
   .route("/admin/getsingleuser/:id")
   .get(isAuthicatedUser, isAdmin, GetSingleUserDeatils);
 
-//updateuser Role
+//update user Role
 userRouter
   .route("/admin/updaterole/:id")
   .put(isAuthicatedUser, isAdmin, UpdateUserRole);
@@ -66,4 +66,4 @@ userRouter
   .route("/admin/delete-user/:id")
   .delete(isAuthicatedUser, isAdmin, DeleteUser);
 
-module.exports = userRouter;
+export default userRouter;

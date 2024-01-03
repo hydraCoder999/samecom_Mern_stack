@@ -1,10 +1,9 @@
-const mongoose = require("mongoose");
-const validator = require("validator");
-const bcrypt = require("bcrypt");
-const JWT = require("jsonwebtoken");
-const dotenv = require("dotenv");
-const crypto = require("crypto");
-
+import mongoose from "mongoose";
+import validator from "validator";
+import bcrypt from "bcrypt";
+import JWT from "jsonwebtoken";
+import dotenv from "dotenv";
+import crypto from "crypto";
 dotenv.config();
 
 const UserSchema = new mongoose.Schema(
@@ -111,4 +110,5 @@ UserSchema.methods.generatePasswordResetToken = function () {
     console.log("error");
   }
 };
-module.exports = mongoose.model("User", UserSchema);
+const usersModel = mongoose.model("User", UserSchema);
+export default usersModel;

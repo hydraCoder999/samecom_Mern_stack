@@ -1,7 +1,7 @@
-const app = require("./app");
-const dotenv = require("dotenv");
-const { dbconnection } = require("./db/conn");
-const cloudinary = require("cloudinary");
+import app from "./app.js";
+import dotenv from "dotenv";
+import cloudinary from "cloudinary";
+import dbconnection from "./db/conn.js";
 
 //dotenv file configuration
 dotenv.config();
@@ -9,7 +9,7 @@ dotenv.config();
 //Port
 const PORT = process.env.PORT || 3000;
 
-//dabase connection
+//database connection
 dbconnection();
 
 cloudinary.config({
@@ -19,7 +19,7 @@ cloudinary.config({
 });
 
 const server = app.listen(PORT, () => {
-  console.log("Server listenign on port " + PORT);
+  console.log("Server listening on port " + PORT);
 });
 
 // server.close();

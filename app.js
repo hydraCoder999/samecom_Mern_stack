@@ -1,27 +1,31 @@
-const express = require("express");
-const productRouter = require("./Routes/productRoutes");
-const errormiddleware = require("./middleware/errormiddleware");
-const userRouter = require("./Routes/userRoutes");
-const cookieParser = require("cookie-parser");
-const OrderRouter = require("./Routes/orderRoutes");
-const CategoryRouter = require("./Routes/categoryRoute");
+import express from "express";
+import productRouter from "./Routes/productRoutes.js";
+import ErrorMiddleware from "./middleware/errormiddleware.js";
+import userRouter from "./Routes/userRoutes.js";
+import cookieParser from "cookie-parser";
+import OrderRouter from "./Routes/orderRoutes.js";
+import CategoryRouter from "./Routes/categoryRoute.js";
 const app = express();
-const bodyParser = require("body-parser");
-const fileUpload = require("express-fileupload");
-const PaymentRouter = require("./Routes/PaymentRoute");
-const passport = require("passport");
-require("./utils/Passport");
-const session = require("express-session");
-const googlerouter = require("./Routes/GoogleRoutes");
-const path = require("path");
+import bodyParser from "body-parser";
+import fileUpload from "express-fileupload";
+import PaymentRouter from "./Routes/PaymentRoute.js";
+import passport from "passport";
+import "./utils/Passport.js";
+import session from "express-session";
+import googlerouter from "./Routes/GoogleRoutes.js";
+import path from "path";
+import { fileURLToPath } from "url";
 
-app.use(express.static(path.join(__dirname, "./Frontend/dist")));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+//configure env
 
 //middleware
 app.use(bodyParser.json({ limit: "50mb" }));
 app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.use(express.json());
 app.use(cookieParser());
+app.use(express.static(path.join(__dirname, "./Frontend/dist")));
 
 app.use(fileUpload());
 
@@ -49,4 +53,9 @@ app.use("/api/v1", userRouter);
 app.use("/api/v1/orders", OrderRouter);
 app.use("/api/v1/payment", PaymentRouter);
 
-module.exports = app;
+//rest api
+app.use("*", function (req, res) {
+  res.sendFile("index.html", { root: "./Frontend/" });
+});
+
+export default app;

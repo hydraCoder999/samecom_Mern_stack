@@ -1,6 +1,6 @@
-const express = require("express");
-const { isAuthicatedUser, isAdmin } = require("../middleware/auth");
-const {
+import express from "express";
+import { isAuthicatedUser, isAdmin } from "../middleware/auth.js";
+import {
   newOrderController,
   GetMyOrder,
   GetUserOrdersByAdmin,
@@ -8,7 +8,7 @@ const {
   UpdateOrder,
   DeleteOrder,
   IvoiceController,
-} = require("../Controller/orderController");
+} from "../Controller/orderController.js";
 
 const OrderRouter = express.Router();
 
@@ -44,4 +44,4 @@ OrderRouter.route("/admin/delete-order/:id").delete(
 
 OrderRouter.route("/invoices/download/:id").get(IvoiceController);
 
-module.exports = OrderRouter;
+export default OrderRouter;

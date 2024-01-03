@@ -1,9 +1,10 @@
-const { ThrowError } = require("../utils/ErrorHelper");
-const dotenv = require("dotenv");
+import { ThrowError } from "../utils/ErrorHelper.js";
+import dotenv from "dotenv";
+import stripe from "stripe";
 dotenv.config();
 
-const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
-exports.paymentController = async (req, res) => {
+stripe(process.env.STRIPE_SECRET_KEY);
+export const paymentController = async (req, res) => {
   try {
     const makePayment = await stripe.paymentIntents.create({
       amount: req.body.amount,
@@ -24,7 +25,7 @@ exports.paymentController = async (req, res) => {
   }
 };
 
-exports.sendStripeApiKey = async (req, res, next) => {
+export const sendStripeApiKey = async (req, res, next) => {
   try {
     res.status(200).json({ stripeApiKey: process.env.STRIPE_PUBLIC_API_KEY });
   } catch (error) {
