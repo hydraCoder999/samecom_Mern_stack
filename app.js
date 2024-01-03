@@ -13,6 +13,9 @@ const passport = require("passport");
 require("./utils/Passport");
 const session = require("express-session");
 const googlerouter = require("./Routes/GoogleRoutes");
+const path = require("path");
+
+app.use(express.static(path.join(__dirname, "./Frontend/dist")));
 
 //middleware
 app.use(bodyParser.json({ limit: "50mb" }));
